@@ -8,8 +8,9 @@ export const TELEGRAM_URL = 'https://t.me/MarinaDugina';
 const TELEGRAM_HINT =
   'Перейдите в Telegram-канал и напишите под постом «УЧАСТВУЮ». Марина пришлёт ссылку на встречу в личные сообщения.';
 
-const IMG = (name: string) => `/marina/${name}`;
-const REVIEW_IMG = (name: string) => `/marina/reviews/${name}`;
+const BASE = import.meta.env.BASE_URL;
+const IMG = (name: string) => `${BASE}marina/${name}`;
+const REVIEW_IMG = (name: string) => `${BASE}marina/reviews/${name}`;
 
 const MEETING_DETAILS = [
   { label: 'Дата', value: '9 июля 2026' },
