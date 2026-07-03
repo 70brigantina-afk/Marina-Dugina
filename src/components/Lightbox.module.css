@@ -1,0 +1,133 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(45, 40, 37, 0.88);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease;
+}
+
+.image {
+  max-width: min(960px, 100%);
+  max-height: min(90vh, 100%);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+  animation: scaleIn 0.35s ease;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: #faf7f2;
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.close:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.close:focus-visible {
+  outline: 2px solid #c9a882;
+  outline-offset: 2px;
+}
+
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  line-height: 1;
+  color: #faf7f2;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.nav:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.nav:focus-visible {
+  outline: 2px solid #c9a882;
+  outline-offset: 2px;
+}
+
+.navPrev {
+  left: 16px;
+}
+
+.navNext {
+  right: 16px;
+}
+
+.counter {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 0.875rem;
+  color: rgba(250, 247, 242, 0.75);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 640px) {
+  .nav {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+
+  .navPrev {
+    left: 8px;
+  }
+
+  .navNext {
+    right: 8px;
+  }
+}
