@@ -24,15 +24,23 @@
   --radius: 14px;
   --radius-lg: 18px;
   --radius-xl: 22px;
-  --card-padding: 20px;
-  --section-py: clamp(48px, 6vw, 72px);
-  --stack: 20px;
-  --title-gap: clamp(24px, 3.5vw, 32px);
+  --card-padding: 28px;
+  --section-py: clamp(52px, 6.5vw, 80px);
+  --stack: 24px;
+  --title-gap: clamp(28px, 3.8vw, 36px);
+
+  /* Контентные блоки — заметно крупнее для комфортного чтения */
+  --text-body: clamp(1.25rem, 3.2vw, 1.875rem);
+  --text-secondary: clamp(1.125rem, 2.8vw, 1.625rem);
+  --text-caption: clamp(1.0625rem, 2.5vw, 1.5rem);
+  --text-btn: clamp(1.25rem, 3vw, 1.75rem);
+  --text-label: 0.875rem;
 
   font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: var(--text-body);
   color: var(--graphite);
   background: var(--milk);
-  line-height: 1.75;
+  line-height: 1.8;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -86,7 +94,7 @@
   display: inline-block;
   padding: 6px 14px;
   margin-bottom: var(--stack);
-  font-size: 0.6875rem;
+  font-size: var(--text-label);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -97,7 +105,7 @@
 
 .heroTitle {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(1.875rem, 4.5vw, 2.625rem);
+  font-size: clamp(2rem, 4.8vw, 2.875rem);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.015em;
@@ -106,7 +114,7 @@
 }
 
 .heroSubtitle {
-  font-size: clamp(1rem, 2vw, 1.0625rem);
+  font-size: clamp(1.0625rem, 2.2vw, 1.125rem);
   color: var(--graphite-soft);
   margin: 0 0 var(--stack);
   max-width: 520px;
@@ -116,7 +124,7 @@
 .heroWarm {
   margin: 0 0 var(--stack);
   padding: 14px 18px;
-  font-size: clamp(0.9375rem, 2vw, 1rem);
+  font-size: clamp(1rem, 2.2vw, 1.0625rem);
   font-weight: 500;
   color: var(--graphite-soft);
   background: var(--white-warm);
@@ -139,7 +147,7 @@
 .meetingDetailsTitle {
   margin: 0 0 14px;
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: var(--graphite);
 }
@@ -165,7 +173,7 @@
 
 .meetingDetailLabel {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: var(--text-label);
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -174,7 +182,7 @@
 
 .meetingDetailValue {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: var(--text-body);
   font-weight: 500;
   color: var(--graphite);
   line-height: 1.45;
@@ -196,7 +204,7 @@
 
 .heroImageWrap {
   width: 100%;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 3 / 2.05;
   overflow: hidden;
   border-radius: calc(clamp(28px, 3.2vw, 36px) - 1px);
   background: var(--cream);
@@ -204,15 +212,15 @@
 
 @media (min-width: 768px) {
   .heroImageWrap {
-    min-height: min(360px, 42vw);
-    max-height: min(520px, 72vh);
+    min-height: min(340px, 40vw);
+    max-height: min(480px, 68vh);
   }
 }
 
 @media (max-width: 767px) {
   .heroImageWrap {
-    aspect-ratio: 3 / 2;
-    max-height: min(420px, 58vw);
+    aspect-ratio: 3 / 2.05;
+    max-height: none;
   }
 }
 
@@ -227,7 +235,7 @@
 
 .sectionTitle {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(1.625rem, 3.5vw, 2.125rem);
+  font-size: clamp(1.75rem, 3.8vw, 2.3125rem);
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: -0.01em;
@@ -238,9 +246,9 @@
 
 .sectionIntro {
   text-align: center;
-  font-size: 1rem;
+  font-size: var(--text-body);
   color: var(--graphite-muted);
-  max-width: 560px;
+  max-width: 480px;
   margin: -8px auto var(--title-gap);
   line-height: 1.85;
 }
@@ -260,10 +268,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 50px;
-  padding: 14px 32px;
+  min-height: 56px;
+  padding: 16px 34px;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: var(--text-btn);
   font-weight: 600;
   letter-spacing: 0.01em;
   color: var(--white);
@@ -288,11 +296,11 @@
 }
 
 .ctaHint {
-  margin-top: 12px;
-  font-size: 0.8125rem;
+  margin-top: 14px;
+  font-size: var(--text-secondary);
   color: var(--graphite-muted);
   max-width: 420px;
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .heroCtaWrap .ctaHint {
@@ -301,8 +309,8 @@
 }
 
 .ctaMicro {
-  margin-top: 8px;
-  font-size: 0.8125rem;
+  margin-top: 10px;
+  font-size: var(--text-secondary);
   color: var(--olive);
   font-weight: 500;
 }
@@ -310,13 +318,13 @@
 /* ── Cards ── */
 .cardGrid {
   display: grid;
-  gap: 14px;
+  gap: 20px;
 }
 
 @media (min-width: 640px) {
   .cardGrid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 22px;
   }
 }
 
@@ -355,7 +363,7 @@
   width: 36px;
   height: 36px;
   margin-bottom: 12px;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: var(--olive);
   background: rgba(138, 149, 135, 0.08);
   border-radius: 10px;
@@ -363,14 +371,14 @@
 
 .cardText {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: var(--text-body);
   color: var(--graphite-soft);
-  line-height: 1.8;
+  line-height: 1.85;
 }
 
 .benefitGrid {
   display: grid;
-  gap: 14px;
+  gap: 20px;
 }
 
 @media (min-width: 640px) {
@@ -403,15 +411,15 @@
 
 .benefitText {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: var(--text-body);
   color: var(--graphite-soft);
-  line-height: 1.8;
+  line-height: 1.85;
 }
 
 .listGrid {
   display: grid;
-  gap: 12px;
-  max-width: 760px;
+  gap: 16px;
+  max-width: 680px;
   margin: 0 auto;
 }
 
@@ -423,12 +431,12 @@
 
 .listItem {
   display: flex;
-  gap: 12px;
-  padding: 16px 18px;
+  gap: 14px;
+  padding: 20px 22px;
   background: var(--white);
-  font-size: 0.9375rem;
+  font-size: var(--text-body);
   color: var(--graphite-soft);
-  line-height: 1.75;
+  line-height: 1.85;
 }
 
 .sectionAlt .listItem {
@@ -437,12 +445,12 @@
 
 .listBullet {
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--white);
   background: var(--olive);
@@ -451,9 +459,9 @@
 }
 
 .giftBox {
-  max-width: 680px;
+  max-width: 640px;
   margin: 0 auto;
-  padding: clamp(24px, 4vw, 32px) clamp(20px, 4vw, 28px);
+  padding: clamp(28px, 4.5vw, 36px) clamp(22px, 4vw, 32px);
   text-align: center;
   background: var(--white);
 }
@@ -463,15 +471,15 @@
 }
 
 .giftMain {
-  font-size: 1.025rem;
+  font-size: var(--text-body);
   font-weight: 500;
   color: var(--graphite);
-  margin: 0 0 16px;
+  margin: 0 0 18px;
   line-height: 1.85;
 }
 
 .giftAccent {
-  font-size: 0.975rem;
+  font-size: var(--text-body);
   font-weight: 600;
   color: var(--terracotta);
   margin: 0;
@@ -530,19 +538,19 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 22px 20px 20px;
+  padding: 26px 24px 24px;
 }
 
 .speakerName {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.5rem;
+  font-size: 1.625rem;
   font-weight: 700;
   margin: 0 0 4px;
   line-height: 1.2;
 }
 
 .speakerRole {
-  font-size: 0.875rem;
+  font-size: var(--text-secondary);
   font-weight: 600;
   color: var(--terracotta);
   margin: 0 0 14px;
@@ -550,12 +558,12 @@
 }
 
 .speakerText {
-  font-size: 0.875rem;
+  font-size: var(--text-body);
   color: var(--graphite-soft);
-  margin: 0 0 14px;
-  line-height: 1.8;
+  margin: 0 0 16px;
+  line-height: 1.85;
   flex: 1;
-  min-height: 7.5rem;
+  min-height: 10rem;
 }
 
 .speakerFacts {
@@ -567,8 +575,8 @@
 .speakerFacts li {
   position: relative;
   padding-left: 14px;
-  margin-bottom: 6px;
-  font-size: 0.8125rem;
+  margin-bottom: 8px;
+  font-size: var(--text-secondary);
   color: var(--graphite-muted);
   line-height: 1.65;
 }
@@ -600,8 +608,8 @@
 }
 
 .eduTag {
-  padding: 6px 12px;
-  font-size: 0.75rem;
+  padding: 8px 14px;
+  font-size: var(--text-caption);
   font-weight: 500;
   color: var(--graphite-muted);
   background: var(--milk);
@@ -610,7 +618,7 @@
 }
 
 .diplomaCaption {
-  font-size: 0.9375rem;
+  font-size: var(--text-body);
   color: var(--graphite-soft);
   line-height: 1.85;
   max-width: 520px;
@@ -626,10 +634,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 46px;
+  min-height: 48px;
   padding: 12px 28px;
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: var(--text-btn);
   font-weight: 600;
   color: var(--graphite);
   background: var(--white);
@@ -653,7 +661,7 @@
 /* ── Reviews ── */
 .reviewsGrid {
   display: grid;
-  gap: 16px;
+  gap: 22px;
 }
 
 @media (min-width: 640px) {
@@ -671,7 +679,7 @@
 .reviewCard {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   margin: 0;
 }
 
@@ -683,10 +691,10 @@
 
 .reviewMessage {
   margin: 0;
-  padding: 14px 16px;
-  font-size: 0.875rem;
+  padding: 18px 20px;
+  font-size: var(--text-body);
   color: var(--graphite-soft);
-  line-height: 1.8;
+  line-height: 1.85;
   background: var(--white);
   border-radius: 4px var(--radius) var(--radius) var(--radius);
 }
@@ -697,8 +705,8 @@
 
 .reviewAvatarImg {
   flex-shrink: 0;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center 20%;
@@ -708,7 +716,7 @@
 }
 
 .reviewName {
-  font-size: 0.8125rem;
+  font-size: var(--text-secondary);
   font-weight: 600;
   font-style: normal;
   color: var(--graphite);
@@ -716,11 +724,11 @@
 
 /* ── FAQ ── */
 .faqList {
-  max-width: 680px;
+  max-width: 640px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
 }
 
 .faqItem {
@@ -737,17 +745,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 18px 20px;
+  gap: 14px;
+  padding: 22px 24px;
   font-family: inherit;
-  font-size: 0.975rem;
+  font-size: var(--text-body);
   font-weight: 600;
   text-align: left;
   color: var(--graphite);
   background: none;
   border: none;
   cursor: pointer;
-  line-height: 1.5;
+  line-height: 1.55;
   transition: color 0.2s ease;
 }
 
@@ -772,8 +780,8 @@
 }
 
 .faqAnswer {
-  padding: 0 20px 18px;
-  font-size: 0.9375rem;
+  padding: 0 24px 22px;
+  font-size: var(--text-body);
   color: var(--graphite-muted);
   line-height: 1.85;
 }
@@ -787,7 +795,7 @@
 
 .finalCtaTitle {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-size: clamp(1.625rem, 3.8vw, 2.1875rem);
   font-weight: 700;
   line-height: 1.3;
   max-width: 620px;
@@ -795,10 +803,10 @@
 }
 
 .finalCtaText {
-  font-size: 1rem;
+  font-size: var(--text-body);
   color: var(--graphite-soft);
-  max-width: 540px;
-  margin: 0 auto 28px;
+  max-width: 480px;
+  margin: 0 auto 32px;
   line-height: 1.85;
 }
 
@@ -806,7 +814,7 @@
 .footer {
   padding: 28px 0;
   text-align: center;
-  font-size: 0.8125rem;
+  font-size: var(--text-caption);
   background: var(--graphite);
   color: rgba(254, 253, 251, 0.65);
   line-height: 1.6;
@@ -824,6 +832,14 @@
 }
 
 @media (max-width: 767px) {
+  .page {
+    --text-body: clamp(1.125rem, 3.8vw, 1.5rem);
+    --text-secondary: clamp(1.0625rem, 3.4vw, 1.375rem);
+    --text-caption: clamp(1rem, 3vw, 1.25rem);
+    --text-btn: clamp(1.125rem, 3.5vw, 1.5rem);
+    --card-padding: 24px;
+  }
+
   .speakerPhoto {
     height: 280px;
   }
