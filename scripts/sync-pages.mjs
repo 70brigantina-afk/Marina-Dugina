@@ -17,6 +17,7 @@ const syncDir = (target) => {
 
 syncDir(docs);
 
+cpSync(builtHtml, join(dist, 'index.html'));
 cpSync(builtHtml, join(root, 'index.html'));
 cpSync(join(dist, 'assets'), join(root, 'assets'), { recursive: true });
 cpSync(join(dist, 'marina'), join(root, 'marina'), { recursive: true });
