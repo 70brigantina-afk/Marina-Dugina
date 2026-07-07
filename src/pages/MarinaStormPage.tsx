@@ -8,46 +8,17 @@ export const TELEGRAM_URL = 'https://t.me/MarinaDugina';
 const TELEGRAM_HINT =
   'Перейдите в Telegram-канал и напишите под постом «УЧАСТВУЮ». Марина пришлёт ссылку на встречу в личные сообщения.';
 
-const REGISTRATION_BENEFITS = [
-  'Участие бесплатно',
-  'Встреча проходит в небольшом формате живого общения',
-  'Количество мест ограничено',
-  'Запись публиковаться не будет',
-  'После встречи каждый участник получит чек-лист «10 практических техник снижения тревоги»',
+const REGISTRATION_CTA_TRUST = [
+  'Бесплатно',
+  'Без долгой регистрации',
+  'Ссылка приходит лично',
 ];
 
-const REGISTRATION_STEPS = [
-  {
-    title: 'Шаг 1',
-    content: (
-      <>
-        Нажмите кнопку
-        <br />
-        «Получить приглашение в Telegram»
-      </>
-    ),
-  },
-  {
-    title: 'Шаг 2',
-    content: 'Перейдите в Telegram-канал',
-  },
-  {
-    title: 'Шаг 3',
-    content: 'message',
-  },
-  {
-    title: 'Шаг 4',
-    content: (
-      <>
-        Марина лично отправит вам
-        <br />
-        ссылку на встречу
-        <br />
-        в личные сообщения Telegram.
-      </>
-    ),
-  },
-] as const;
+const TELEGRAM_FLOW_STEPS = [
+  'Перейдите в Telegram',
+  { text: 'Под последним постом напишите', badge: 'УЧАСТВУЮ' },
+  'Марина пришлёт ссылку в личные сообщения',
+];
 
 const BASE = import.meta.env.BASE_URL;
 const IMG = (name: string) => `${BASE}marina/${name}`;
@@ -219,23 +190,54 @@ type CtaProps = {
 function CtaBlock({ label, hint, micro, className }: CtaProps) {
   return (
     <div className={`${styles.ctaWrap} ${className ?? ''}`}>
-      <a
-        href={TELEGRAM_URL}
-        className={styles.ctaBtn}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {label}
-      </a>
-      {hint && <p className={styles.ctaHint}>{hint}</p>}
-      {micro && <p className={styles.ctaMicro}>{micro}</p>}
+      <div className={styles.ctaInner}>
+        <a
+          href={TELEGRAM_URL}
+          className={styles.ctaBtn}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {label}
+        </a>
+        {hint && <p className={styles.ctaHint}>{hint}</p>}
+        {micro && <p className={styles.ctaMicro}>{micro}</p>}
+      </div>
     </div>
   );
 }
 
-function TelegramIcon() {
+function TelegramFlowGuide({ className }: { className?: string }) {
   return (
-    <svg className={styles.registrationCtaIcon} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <div className={`${styles.flowGuide} ${className ?? ''}`}>
+      {TELEGRAM_FLOW_STEPS.map((step, index) => (
+        <div key={index} className={styles.flowGuideItem}>
+          {index > 0 && (
+            <div className={styles.flowGuideArrow} aria-hidden="true">
+              ↓
+            </div>
+          )}
+          <div className={styles.flowGuideStep}>
+            <span className={styles.flowGuideNum} aria-hidden="true">
+              {index + 1}
+            </span>
+            {typeof step === 'string' ? (
+              <p className={styles.flowGuideText}>{step}</p>
+            ) : (
+              <div className={styles.flowGuideBody}>
+                <p className={styles.flowGuideText}>{step.text}</p>
+                <span className={styles.regWordBadge}>{step.badge}</span>
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function TelegramIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
     </svg>
   );
@@ -243,96 +245,50 @@ function TelegramIcon() {
 
 function RegistrationBlock() {
   return (
-    <div className={styles.registrationBlock}>
-      <div className={styles.registrationCtaGroup}>
+    <div className={styles.regColumn}>
+      <h3 className={styles.regHeadline}>Получите приглашение всего за 30 секунд</h3>
+      <p className={styles.regIntro}>
+        Чтобы принять участие, достаточно перейти в Telegram и оставить комментарий под
+        последним постом.
+      </p>
+
+      <div className={styles.regCtaStack}>
         <a
           href={TELEGRAM_URL}
-          className={styles.registrationCtaBtn}
+          className={styles.regPrimaryBtn}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <TelegramIcon />
-          <span className={styles.registrationCtaLabel}>
-            <span className={styles.registrationCtaLine}>Получить приглашение</span>
-            <span className={styles.registrationCtaLineSub}>в Telegram</span>
-          </span>
+          <TelegramIcon className={styles.regPrimaryBtnIcon} />
+          <span className={styles.regPrimaryBtnLabel}>Получить приглашение в Telegram</span>
         </a>
 
-        <div className={styles.registrationInstructionCard}>
-          <div className={styles.registrationInstructionRow}>
-            <span className={styles.registrationInstructionIcon} aria-hidden="true">
-              📲
-            </span>
-            <p className={styles.registrationInstructionText}>Перейдите в Telegram-канал.</p>
-          </div>
-          <div className={styles.registrationInstructionRow}>
-            <span className={styles.registrationInstructionIcon} aria-hidden="true">
-              💬
-            </span>
-            <div className={styles.registrationInstructionBody}>
-              <p className={styles.registrationInstructionText}>
-                Под последним постом напишите:
-              </p>
-              <span className={styles.registrationBadge}>УЧАСТВУЮ</span>
-            </div>
-          </div>
-          <div className={styles.registrationInstructionRow}>
-            <span className={styles.registrationInstructionIcon} aria-hidden="true">
-              ✉️
-            </span>
-            <p className={styles.registrationInstructionText}>
-              После этого Марина лично отправит вам ссылку на встречу в личные сообщения.
-            </p>
-          </div>
+        <div className={styles.regGuideCard}>
+          <h4 className={styles.regGuideTitle}>Как попасть на встречу</h4>
+          <TelegramFlowGuide />
+          <p className={styles.regGuideTrust}>
+            {REGISTRATION_CTA_TRUST.map((item, index) => (
+              <span key={item}>
+                {index > 0 && (
+                  <span className={styles.regGuideTrustDot} aria-hidden="true">
+                    {' '}
+                    ·{' '}
+                  </span>
+                )}
+                <span>✓ {item}</span>
+              </span>
+            ))}
+          </p>
         </div>
       </div>
 
-      <h2 className={styles.registrationTitle}>Как попасть на бесплатную встречу</h2>
-
-      <div className={styles.registrationFlow}>
-        {REGISTRATION_STEPS.map((step, index) => (
-          <div key={step.title} className={styles.registrationFlowItem}>
-            {index > 0 && (
-              <div className={styles.registrationFlowArrow} aria-hidden="true">
-                ↓
-              </div>
-            )}
-            <article className={styles.registrationStepCard}>
-              <span className={styles.registrationStepNum}>{step.title}</span>
-              {step.content === 'message' ? (
-                <div className={styles.registrationStepCardBody}>
-                  <p className={styles.registrationStepCardText}>
-                    Под последним постом напишите
-                  </p>
-                  <span className={styles.registrationBadge}>УЧАСТВУЮ</span>
-                </div>
-              ) : (
-                <p className={styles.registrationStepCardText}>{step.content}</p>
-              )}
-            </article>
-          </div>
-        ))}
-      </div>
-
-      <aside className={styles.registrationTrust}>
-        <h3 className={styles.registrationTrustTitle}>Почему ссылка приходит лично?</h3>
-        <p className={styles.registrationTrustText}>
-          Потому что мы проводим встречу в небольшом формате, где можно задать вопросы и
-          получить обратную связь. Поэтому ссылка отправляется только зарегистрированным
-          участникам.
+      <aside className={styles.regWhyCard}>
+        <h4 className={styles.regWhyTitle}>Почему ссылка приходит лично?</h4>
+        <p className={styles.regWhyText}>
+          Потому что встреча проходит в небольшом формате живого общения. Каждый участник
+          сможет задать вопросы. Запись встречи публиковаться не будет.
         </p>
       </aside>
-
-      <ul className={styles.registrationBenefitsRow}>
-        {REGISTRATION_BENEFITS.map((benefit) => (
-          <li key={benefit} className={styles.registrationBenefitItem}>
-            <span className={styles.registrationBenefitCheck} aria-hidden="true">
-              ✔
-            </span>
-            <span>{benefit}</span>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
@@ -388,7 +344,8 @@ export function MarinaStormPage() {
 
       {/* Hero */}
       <section className={styles.hero}>
-        <div className={`${styles.container} ${styles.heroGrid}`}>
+        <div className={styles.container}>
+          <div className={`${styles.heroGrid}`}>
           <div className={styles.heroContent}>
             <Reveal>
               <span className={styles.heroBadge}>Бесплатная онлайн-встреча</span>
@@ -404,17 +361,6 @@ export function MarinaStormPage() {
                 Здесь вас примут, поймут и помогут найти опору — без давления, стыда и
                 навязывания.
               </p>
-              <div className={styles.meetingDetails} aria-label="Детали встречи">
-                <p className={styles.meetingDetailsTitle}>Детали встречи</p>
-                <dl className={styles.meetingDetailsGrid}>
-                  {MEETING_DETAILS.map((item) => (
-                    <div key={item.label} className={styles.meetingDetailItem}>
-                      <dt className={styles.meetingDetailLabel}>{item.label}</dt>
-                      <dd className={styles.meetingDetailValue}>{item.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
             </Reveal>
           </div>
           <div className={styles.heroVisual}>
@@ -434,9 +380,24 @@ export function MarinaStormPage() {
             </Reveal>
           </div>
         </div>
-      </section>
 
-      {/* Registration guide */}
+        <Reveal delay={160}>
+          <div className={styles.meetingDetailsCard} aria-label="Детали встречи">
+            <h2 className={styles.meetingDetailsTitle}>Детали встречи</h2>
+            <dl className={styles.meetingDetailsGrid}>
+              {MEETING_DETAILS.map((item) => (
+                <div key={item.label} className={styles.meetingDetailItem}>
+                  <dt className={styles.meetingDetailLabel}>{item.label}</dt>
+                  <dd className={styles.meetingDetailValue}>{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+
+    {/* Registration guide */}
       <section className={styles.registrationSection}>
         <div className={styles.container}>
           <Reveal>

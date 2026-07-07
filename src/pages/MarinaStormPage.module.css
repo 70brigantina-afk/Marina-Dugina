@@ -25,9 +25,11 @@
   --radius-lg: 18px;
   --radius-xl: 22px;
   --card-padding: 28px;
-  --section-py: clamp(52px, 6.5vw, 80px);
+  --layout-max: 1200px;
+  --content-max: 680px;
+  --section-py: clamp(80px, 10vw, 120px);
   --stack: 24px;
-  --title-gap: clamp(28px, 3.8vw, 36px);
+  --title-gap: clamp(32px, 4vw, 44px);
 
   /* Контентные блоки — заметно крупнее для комфортного чтения */
   --text-body: clamp(1.25rem, 3.2vw, 1.875rem);
@@ -47,15 +49,15 @@
 
 .container {
   width: 100%;
-  max-width: 1080px;
+  max-width: var(--layout-max);
   margin: 0 auto;
-  padding: 0 clamp(16px, 4vw, 28px);
+  padding-inline: 24px;
 }
 
 /* ── Hero ── */
 .hero {
   position: relative;
-  padding: clamp(48px, 7vw, 80px) 0 var(--section-py);
+  padding: clamp(48px, 7vw, 80px) 0 clamp(64px, 8vw, 96px);
   background: var(--milk);
 }
 
@@ -117,12 +119,12 @@
   font-size: clamp(1.0625rem, 2.2vw, 1.125rem);
   color: var(--graphite-soft);
   margin: 0 0 var(--stack);
-  max-width: 520px;
+  max-width: 36rem;
   line-height: 1.85;
 }
 
 .heroWarm {
-  margin: 0 0 var(--stack);
+  margin: 0;
   padding: 14px 18px;
   font-size: clamp(1rem, 2.2vw, 1.0625rem);
   font-weight: 500;
@@ -130,66 +132,76 @@
   background: var(--white-warm);
   border-left: 2px solid var(--caramel);
   border-radius: 0 var(--radius) var(--radius) 0;
-  max-width: 520px;
+  max-width: 36rem;
   line-height: 1.75;
 }
 
-.meetingDetails {
-  margin-bottom: var(--stack);
-  padding: 18px 20px;
-  max-width: 520px;
-  background: var(--white-warm);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-xs);
+/* ── Meeting details (centered full-width card) ── */
+.meetingDetailsCard {
+  width: 100%;
+  max-width: var(--layout-max);
+  margin: clamp(36px, 5vw, 52px) auto 0;
+  padding: clamp(32px, 4vw, 48px) clamp(28px, 4vw, 40px);
+  background: var(--white);
+  border: 1px solid var(--border-warm);
+  border-radius: 24px;
+  box-shadow:
+    0 1px 2px rgba(46, 42, 39, 0.04),
+    0 12px 40px rgba(46, 42, 39, 0.06);
 }
 
 .meetingDetailsTitle {
-  margin: 0 0 14px;
+  margin: 0 0 clamp(24px, 3vw, 32px);
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  font-weight: 700;
+  text-align: center;
   color: var(--graphite);
+  line-height: 1.2;
 }
 
 .meetingDetailsGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px 20px;
+  gap: clamp(20px, 2.5vw, 28px) clamp(24px, 3vw, 40px);
   margin: 0;
 }
 
-@media (min-width: 480px) {
+@media (min-width: 560px) {
   .meetingDetailsGrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .meetingDetailsGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 .meetingDetailItem {
   display: grid;
-  gap: 2px;
+  gap: 6px;
   margin: 0;
+  text-align: center;
 }
 
 .meetingDetailLabel {
   margin: 0;
-  font-size: var(--text-label);
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--graphite-muted);
 }
 
 .meetingDetailValue {
   margin: 0;
-  font-size: var(--text-body);
-  font-weight: 500;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.375rem, 2.5vw, 1.625rem);
+  font-weight: 600;
   color: var(--graphite);
-  line-height: 1.45;
-}
-
-.heroCtaWrap {
-  text-align: left;
+  line-height: 1.25;
 }
 
 .heroImageFrame {
@@ -248,20 +260,27 @@
   text-align: center;
   font-size: var(--text-body);
   color: var(--graphite-muted);
-  max-width: 480px;
+  max-width: var(--content-max);
   margin: -8px auto var(--title-gap);
   line-height: 1.85;
 }
 
 /* ── CTA ── */
 .ctaWrap {
-  text-align: center;
-  margin-top: clamp(24px, 3.5vw, 32px);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: clamp(28px, 4vw, 40px) 0 0;
 }
 
-.heroCtaWrap.ctaWrap {
-  text-align: left;
-  margin-top: 0;
+.ctaInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  text-align: center;
 }
 
 .ctaBtn {
@@ -296,23 +315,33 @@
 }
 
 .ctaHint {
-  margin-top: 14px;
-  font-size: var(--text-secondary);
+  margin: 14px auto 0;
+  width: 100%;
+  max-width: 36rem;
+  font-size: clamp(1rem, 2.2vw, 1.125rem);
   color: var(--graphite-muted);
-  max-width: 420px;
-  line-height: 1.75;
-}
-
-.heroCtaWrap .ctaHint {
-  margin-left: 0;
-  margin-right: 0;
+  line-height: 1.65;
+  text-align: center;
+  text-wrap: balance;
 }
 
 .ctaMicro {
-  margin-top: 10px;
-  font-size: var(--text-secondary);
+  margin: 10px auto 0;
+  width: 100%;
+  max-width: 36rem;
+  font-size: clamp(1rem, 2.2vw, 1.125rem);
   color: var(--olive);
   font-weight: 500;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.finalCta .ctaWrap {
+  margin-top: 0;
+}
+
+.finalCta .ctaInner {
+  align-items: center;
 }
 
 .ctaNotice {
@@ -331,329 +360,288 @@
 
 /* ── Registration block ── */
 .registrationSection {
-  padding: clamp(40px, 5vw, 56px) 0 clamp(48px, 6vw, 72px);
+  padding: var(--section-py) 0;
   background: var(--white-warm);
 }
 
-.registrationBlock {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: clamp(32px, 4.5vw, 48px) clamp(22px, 4vw, 40px);
-  background: var(--milk);
-  border: 1px solid var(--border-warm);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow);
-}
-
-.registrationCtaGroup {
+.regColumn {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 400px;
-  margin: 0 auto clamp(32px, 4vw, 44px);
-  gap: 20px;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  text-align: center;
+  gap: clamp(16px, 2.5vw, 22px);
 }
 
-.registrationCtaBtn {
+.regHeadline {
+  margin: 0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.625rem, 3.8vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--graphite);
+  text-wrap: balance;
+}
+
+.regIntro {
+  margin: 0;
+  max-width: 36rem;
+  font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+  color: var(--graphite-muted);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* CTA stack — button + guide card */
+.regCtaStack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+.regPrimaryBtn {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 60px;
-  padding: 14px 24px 14px 52px;
+  min-height: 62px;
+  padding: 0 56px;
   font-family: inherit;
   font-weight: 600;
   color: var(--white);
   text-decoration: none;
-  background: var(--terracotta);
-  border-radius: 16px;
-  box-shadow: 0 4px 14px rgba(184, 149, 106, 0.28);
+  background: linear-gradient(135deg, var(--terracotta) 0%, #a6845c 100%);
+  border-radius: 14px;
+  box-shadow:
+    0 1px 2px rgba(46, 42, 39, 0.05),
+    0 6px 20px rgba(184, 149, 106, 0.28);
   transition:
-    transform 0.28s ease,
-    box-shadow 0.28s ease,
-    background 0.28s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.registrationCtaBtn:hover {
-  transform: scale(1.02);
-  background: var(--terracotta-hover);
-  box-shadow: 0 6px 18px rgba(184, 149, 106, 0.34);
+.regPrimaryBtn:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 2px 4px rgba(46, 42, 39, 0.06),
+    0 10px 28px rgba(184, 149, 106, 0.34);
 }
 
-.registrationCtaBtn:focus-visible {
+.regPrimaryBtn:active {
+  transform: translateY(0);
+}
+
+.regPrimaryBtn:focus-visible {
   outline: 2px solid var(--olive);
-  outline-offset: 4px;
+  outline-offset: 3px;
 }
 
-.registrationCtaIcon {
+.regPrimaryBtnIcon {
   position: absolute;
-  left: 20px;
+  left: 22px;
   flex-shrink: 0;
   width: 22px;
   height: 22px;
 }
 
-.registrationCtaLabel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1px;
+.regPrimaryBtnLabel {
+  font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* Guide card */
+.regGuideCard {
   width: 100%;
+  padding: 22px 24px 18px;
+  background: var(--white);
+  border: 1px solid var(--border-warm);
+  border-radius: 16px;
+  box-shadow:
+    0 1px 2px rgba(46, 42, 39, 0.04),
+    0 6px 24px rgba(46, 42, 39, 0.05);
   text-align: center;
+}
+
+.regGuideTitle {
+  margin: 0 0 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--graphite);
   line-height: 1.3;
 }
 
-.registrationCtaLine {
-  font-size: clamp(1rem, 2.2vw, 1.125rem);
-  letter-spacing: 0.01em;
+/* Telegram flow steps (shared) */
+.flowGuide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
 }
 
-.registrationCtaLineSub {
-  font-size: clamp(0.9375rem, 2vw, 1rem);
-  font-weight: 500;
-  opacity: 0.92;
-}
-
-.registrationInstructionCard {
+.flowGuideItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  padding: 20px 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  background: var(--beige-soft);
-  border: 1px solid var(--border-warm);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xs);
 }
 
-.registrationInstructionRow {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
+.flowGuideArrow {
+  padding: 6px 0;
+  font-size: 0.9375rem;
+  color: var(--caramel);
+  line-height: 1;
 }
 
-.registrationInstructionIcon {
-  flex-shrink: 0;
-  width: 28px;
-  font-size: 1.125rem;
-  line-height: 1.55;
-  text-align: center;
-}
-
-.registrationInstructionBody {
+.flowGuideStep {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
-  min-width: 0;
+  width: 100%;
 }
 
-.registrationInstructionText {
-  margin: 0;
-  font-size: var(--text-secondary);
-  color: var(--graphite-soft);
-  line-height: 1.6;
-  text-wrap: pretty;
-}
-
-.registrationTitle {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(1.5rem, 3.5vw, 2.125rem);
-  font-weight: 700;
-  line-height: 1.25;
-  text-align: center;
-  color: var(--graphite);
-  margin: 0 0 clamp(28px, 4vw, 36px);
-}
-
-.registrationFlow {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(12px, 2vw, 18px);
-  margin-bottom: clamp(24px, 3.5vw, 32px);
-}
-
-.registrationFlowItem {
-  display: contents;
-}
-
-.registrationFlowArrow {
-  display: none;
-}
-
-.registrationStepCard {
+.flowGuideNum {
+  flex-shrink: 0;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  height: 100%;
-  padding: clamp(18px, 2.5vw, 22px) clamp(14px, 2vw, 18px);
-  background: var(--white-warm);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xs);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.registrationStepCard:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-}
-
-.registrationStepNum {
-  font-size: var(--text-label);
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  font-size: 0.8125rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--terracotta);
+  background: var(--cream);
+  border: 1px solid var(--border-warm);
+  border-radius: 50%;
 }
 
-.registrationStepCardBody {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.registrationStepCardText {
+.flowGuideText {
   margin: 0;
-  font-size: var(--text-secondary);
+  font-size: 0.875rem;
   color: var(--graphite-soft);
-  line-height: 1.7;
+  line-height: 1.45;
+  text-align: center;
 }
 
-.registrationBadge {
+.flowGuideBody {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.regWordBadge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 18px;
-  font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+  margin-left: 2px;
+  padding: 3px 10px;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
+  vertical-align: baseline;
   color: var(--white);
   background: var(--terracotta);
   border-radius: 999px;
-  box-shadow: var(--shadow-xs);
+  box-shadow: 0 1px 4px rgba(184, 149, 106, 0.22);
+  white-space: nowrap;
 }
 
-.registrationTrust {
-  margin-bottom: clamp(24px, 3.5vw, 32px);
-  padding: clamp(18px, 2.5vw, 24px) clamp(20px, 3vw, 28px);
-  background: var(--white-warm);
+.regGuideTrust {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-warm);
+  font-size: 0.75rem;
+  color: var(--graphite-muted);
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.regGuideTrustDot {
+  opacity: 0.55;
+}
+
+/* Why card */
+.regWhyCard {
+  width: 100%;
+  padding: clamp(16px, 2vw, 20px) clamp(18px, 2.5vw, 22px);
+  background: var(--milk);
   border: 1px solid var(--border-warm);
   border-left: 3px solid var(--caramel);
-  border-radius: var(--radius-lg);
+  border-radius: 12px;
+  text-align: center;
 }
 
-.registrationTrustTitle {
-  margin: 0 0 10px;
+.regWhyTitle {
+  margin: 0 0 8px;
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+  font-size: clamp(1rem, 2.2vw, 1.125rem);
   font-weight: 600;
   color: var(--graphite);
   line-height: 1.3;
 }
 
-.registrationTrustText {
+.regWhyText {
   margin: 0;
-  font-size: var(--text-secondary);
+  font-size: clamp(0.8125rem, 1.8vw, 0.9375rem);
   color: var(--graphite-muted);
-  line-height: 1.75;
-}
-
-.registrationBenefitsRow {
-  list-style: none;
-  margin: 0;
-  padding: clamp(18px, 2.5vw, 22px) clamp(16px, 2.5vw, 20px);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 12px 20px;
-  background: var(--cream);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-}
-
-.registrationBenefitItem {
-  display: inline-flex;
-  align-items: flex-start;
-  gap: 8px;
-  max-width: 280px;
-  font-size: var(--text-caption);
-  color: var(--graphite-soft);
-  line-height: 1.55;
-}
-
-.registrationBenefitCheck {
-  flex-shrink: 0;
-  color: var(--olive);
-  font-weight: 700;
-  line-height: 1.4;
-}
-
-@media (max-width: 960px) {
-  .registrationFlow {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .registrationFlowItem {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .registrationFlowArrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 0;
-    font-size: 1.25rem;
-    color: var(--caramel);
-    line-height: 1;
-  }
-
-  .registrationBenefitsRow {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-
-  .registrationBenefitItem {
-    max-width: none;
-  }
+  line-height: 1.6;
 }
 
 @media (max-width: 767px) {
-  .registrationBlock {
-    padding: 24px 18px;
+  .container {
+    padding-inline: 20px;
   }
 
-  .registrationCtaGroup {
-    max-width: none;
-    gap: 18px;
+  .meetingDetailsCard {
+    padding: 24px 20px;
+    border-radius: 20px;
   }
 
-  .registrationCtaBtn {
+  .regCtaStack {
+    gap: 12px;
+  }
+
+  .regPrimaryBtn {
     min-height: 58px;
-    padding: 12px 20px 12px 48px;
+    padding: 0 48px;
   }
 
-  .registrationCtaIcon {
+  .regPrimaryBtnIcon {
     left: 18px;
     width: 20px;
     height: 20px;
   }
 
-  .registrationInstructionCard {
-    padding: 18px 16px;
+  .regPrimaryBtnLabel {
+    font-size: 0.875rem;
+    white-space: normal;
+    text-align: center;
   }
 
-  .registrationInstructionText {
-    line-height: 1.65;
+  .regGuideCard {
+    padding: 16px 18px 14px;
+  }
+
+  .flowGuideText {
+    font-size: 0.8125rem;
+  }
+
+  .regGuideTrust {
+    font-size: 0.6875rem;
+    white-space: normal;
+    line-height: 1.5;
   }
 }
 
@@ -761,7 +749,7 @@
 .listGrid {
   display: grid;
   gap: 16px;
-  max-width: 680px;
+  max-width: var(--layout-max);
   margin: 0 auto;
 }
 
@@ -801,7 +789,7 @@
 }
 
 .giftBox {
-  max-width: 640px;
+  max-width: var(--content-max);
   margin: 0 auto;
   padding: clamp(28px, 4.5vw, 36px) clamp(22px, 4vw, 32px);
   text-align: center;
@@ -936,7 +924,7 @@
 
 /* ── Education ── */
 .eduSection {
-  max-width: 640px;
+  max-width: var(--content-max);
   margin: 0 auto;
   text-align: center;
 }
@@ -963,7 +951,7 @@
   font-size: var(--text-body);
   color: var(--graphite-soft);
   line-height: 1.85;
-  max-width: 520px;
+  max-width: var(--content-max);
   margin: 0 auto 24px;
 }
 
@@ -1066,7 +1054,7 @@
 
 /* ── FAQ ── */
 .faqList {
-  max-width: 640px;
+  max-width: var(--content-max);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -1140,14 +1128,14 @@
   font-size: clamp(1.625rem, 3.8vw, 2.1875rem);
   font-weight: 700;
   line-height: 1.3;
-  max-width: 620px;
+  max-width: var(--content-max);
   margin: 0 auto 16px;
 }
 
 .finalCtaText {
   font-size: var(--text-body);
   color: var(--graphite-soft);
-  max-width: 480px;
+  max-width: var(--content-max);
   margin: 0 auto 32px;
   line-height: 1.85;
 }
