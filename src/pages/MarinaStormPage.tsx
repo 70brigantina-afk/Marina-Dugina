@@ -8,6 +8,47 @@ export const TELEGRAM_URL = 'https://t.me/MarinaDugina';
 const TELEGRAM_HINT =
   'Перейдите в Telegram-канал и напишите под постом «УЧАСТВУЮ». Марина пришлёт ссылку на встречу в личные сообщения.';
 
+const REGISTRATION_BENEFITS = [
+  'Участие бесплатно',
+  'Встреча проходит в небольшом формате живого общения',
+  'Количество мест ограничено',
+  'Запись публиковаться не будет',
+  'После встречи каждый участник получит чек-лист «10 практических техник снижения тревоги»',
+];
+
+const REGISTRATION_STEPS = [
+  {
+    title: 'Шаг 1',
+    content: (
+      <>
+        Нажмите кнопку
+        <br />
+        «Получить приглашение в Telegram»
+      </>
+    ),
+  },
+  {
+    title: 'Шаг 2',
+    content: 'Перейдите в Telegram-канал',
+  },
+  {
+    title: 'Шаг 3',
+    content: 'message',
+  },
+  {
+    title: 'Шаг 4',
+    content: (
+      <>
+        Марина лично отправит вам
+        <br />
+        ссылку на встречу
+        <br />
+        в личные сообщения Telegram.
+      </>
+    ),
+  },
+] as const;
+
 const BASE = import.meta.env.BASE_URL;
 const IMG = (name: string) => `${BASE}marina/${name}`;
 const REVIEW_IMG = (name: string) => `${BASE}marina/reviews/${name}`;
@@ -192,6 +233,110 @@ function CtaBlock({ label, hint, micro, className }: CtaProps) {
   );
 }
 
+function TelegramIcon() {
+  return (
+    <svg className={styles.registrationCtaIcon} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
+    </svg>
+  );
+}
+
+function RegistrationBlock() {
+  return (
+    <div className={styles.registrationBlock}>
+      <div className={styles.registrationCtaGroup}>
+        <a
+          href={TELEGRAM_URL}
+          className={styles.registrationCtaBtn}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <TelegramIcon />
+          <span className={styles.registrationCtaLabel}>
+            <span className={styles.registrationCtaLine}>Получить приглашение</span>
+            <span className={styles.registrationCtaLineSub}>в Telegram</span>
+          </span>
+        </a>
+
+        <div className={styles.registrationInstructionCard}>
+          <div className={styles.registrationInstructionRow}>
+            <span className={styles.registrationInstructionIcon} aria-hidden="true">
+              📲
+            </span>
+            <p className={styles.registrationInstructionText}>Перейдите в Telegram-канал.</p>
+          </div>
+          <div className={styles.registrationInstructionRow}>
+            <span className={styles.registrationInstructionIcon} aria-hidden="true">
+              💬
+            </span>
+            <div className={styles.registrationInstructionBody}>
+              <p className={styles.registrationInstructionText}>
+                Под последним постом напишите:
+              </p>
+              <span className={styles.registrationBadge}>УЧАСТВУЮ</span>
+            </div>
+          </div>
+          <div className={styles.registrationInstructionRow}>
+            <span className={styles.registrationInstructionIcon} aria-hidden="true">
+              ✉️
+            </span>
+            <p className={styles.registrationInstructionText}>
+              После этого Марина лично отправит вам ссылку на встречу в личные сообщения.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h2 className={styles.registrationTitle}>Как попасть на бесплатную встречу</h2>
+
+      <div className={styles.registrationFlow}>
+        {REGISTRATION_STEPS.map((step, index) => (
+          <div key={step.title} className={styles.registrationFlowItem}>
+            {index > 0 && (
+              <div className={styles.registrationFlowArrow} aria-hidden="true">
+                ↓
+              </div>
+            )}
+            <article className={styles.registrationStepCard}>
+              <span className={styles.registrationStepNum}>{step.title}</span>
+              {step.content === 'message' ? (
+                <div className={styles.registrationStepCardBody}>
+                  <p className={styles.registrationStepCardText}>
+                    Под последним постом напишите
+                  </p>
+                  <span className={styles.registrationBadge}>УЧАСТВУЮ</span>
+                </div>
+              ) : (
+                <p className={styles.registrationStepCardText}>{step.content}</p>
+              )}
+            </article>
+          </div>
+        ))}
+      </div>
+
+      <aside className={styles.registrationTrust}>
+        <h3 className={styles.registrationTrustTitle}>Почему ссылка приходит лично?</h3>
+        <p className={styles.registrationTrustText}>
+          Потому что мы проводим встречу в небольшом формате, где можно задать вопросы и
+          получить обратную связь. Поэтому ссылка отправляется только зарегистрированным
+          участникам.
+        </p>
+      </aside>
+
+      <ul className={styles.registrationBenefitsRow}>
+        {REGISTRATION_BENEFITS.map((benefit) => (
+          <li key={benefit} className={styles.registrationBenefitItem}>
+            <span className={styles.registrationBenefitCheck} aria-hidden="true">
+              ✔
+            </span>
+            <span>{benefit}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function ReviewAvatar({ avatar, name }: { avatar: string; name: string }) {
   return (
     <img
@@ -270,11 +415,6 @@ export function MarinaStormPage() {
                   ))}
                 </dl>
               </div>
-              <CtaBlock
-                label="Записаться через Telegram"
-                hint={TELEGRAM_HINT}
-                className={styles.heroCtaWrap}
-              />
             </Reveal>
           </div>
           <div className={styles.heroVisual}>
@@ -293,6 +433,15 @@ export function MarinaStormPage() {
               </div>
             </Reveal>
           </div>
+        </div>
+      </section>
+
+      {/* Registration guide */}
+      <section className={styles.registrationSection}>
+        <div className={styles.container}>
+          <Reveal>
+            <RegistrationBlock />
+          </Reveal>
         </div>
       </section>
 
